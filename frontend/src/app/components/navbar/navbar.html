@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <a routerLink="/" class="logo">
+        📝 TaskApp
+      </a>
+    </div>
+
+    <ul class="navbar-menu">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
+      
+      <ng-container *ngIf="estaAutenticado">
+        <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li><a routerLink="/perfil" routerLinkActive="active">Perfil</a></li>
+      </ng-container>
+    </ul>
+
+    <div class="navbar-actions">
+      <ng-container *ngIf="!estaAutenticado">
+        <a routerLink="/login" class="btn btn-outline">Iniciar Sesión</a>
+        <a routerLink="/registro" class="btn btn-primary">Registrarse</a>
+      </ng-container>
+
+      <ng-container *ngIf="estaAutenticado">
+        <span class="usuario-nombre">Hola, {{ usuario?.nombre }}</span>
+        <button (click)="cerrarSesion()" class="btn btn-outline">Cerrar Sesión</button>
+      </ng-container>
+    </div>
+  </div>
+</nav>

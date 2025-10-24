@@ -1,0 +1,25 @@
+/* Los estilos principales están en styles.css (auth-container, auth-card) */
+/* Estilos adicionales específicos del login */
+
+.auth-card {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-card h2 {
+  text-align: center;
+}
+
+.auth-card .subtitle {
+  text-align: center;
+}

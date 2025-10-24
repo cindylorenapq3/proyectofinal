@@ -1,0 +1,158 @@
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h1>Mi Perfil</h1>
+    <p class="subtitle">Gestiona tu información personal</p>
+  </div>
+
+  <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': tipoMensaje === 'success', 'alert-error': tipoMensaje === 'error'}">
+    {{ mensaje }}
+  </div>
+
+  <div class="perfil-content">
+    <!-- Información del Perfil -->
+    <div class="perfil-card">
+      <div class="card-header">
+        <h2>Información Personal</h2>
+      </div>
+
+      <div class="avatar-section">
+        <div class="avatar-large">
+          <img [src]="usuario?.avatar || 'https://via.placeholder.com/150'" [alt]="usuario?.nombre">
+        </div>
+      </div>
+
+      <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
+        <div class="form-group">
+          <label for="nombre">Nombre completo *</label>
+          <input
+            type="text"
+            id="nombre"
+            formControlName="nombre"
+            placeholder="Tu nombre"
+            [class.error]="nombre?.invalid && nombre?.touched"
+          />
+          <div *ngIf="nombre?.invalid && nombre?.touched" class="error-message">
+            <span *ngIf="nombre?.errors?.['required']">El nombre es obligatorio</span>
+            <span *ngIf="nombre?.errors?.['minlength']">Mínimo 3 caracteres</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            [value]="usuario?.email"
+            disabled
+            class="input-disabled"
+          />
+          <small class="help-text">El email no se puede modificar</small>
+        </div>
+
+        <div class="form-group">
+          <label for="bio">Biografía</label>
+          <textarea
+            id="bio"
+            formControlName="bio"
+            rows="4"
+            placeholder="Cuéntanos algo sobre ti..."
+            [class.error]="bio?.invalid && bio?.touched"
+          ></textarea>
+          <div *ngIf="bio?.invalid && bio?.touched" class="error-message">
+            Máximo 500 caracteres
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="avatar">URL del Avatar</label>
+          <input
+            type="url"
+            id="avatar"
+            formControlName="avatar"
+            placeholder="https://ejemplo.com/avatar.jpg"
+          />
+          <small class="help-text">URL de tu foto de perfil</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="cargando || perfilForm.invalid">
+            {{ cargando ? 'Guardando...' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Seguridad -->
+    <div class="perfil-card">
+      <div class="card-header">
+        <h2>Seguridad</h2>
+      </div>
+
+      <div class="info-section">
+        <p><strong>Cuenta creada:</strong> {{ usuario?.fechaRegistro | date:'dd/MM/yyyy' }}</p>
+        <p><strong>ID de usuario:</strong> {{ usuario?.id }}</p>
+      </div>
+
+      <button 
+        class="btn btn-outline btn-block" 
+        (click)="toggleCambioPassword()"
+      >
+        {{ mostrarCambioPassword ? 'Cancelar' : 'Cambiar Contraseña' }}
+      </button>
+
+      <div *ngIf="mostrarCambioPassword" class="password-section">
+        <form [formGroup]="passwordForm" (ngSubmit)="cambiarPassword()">
+          <div class="form-group">
+            <label for="passwordActual">Contraseña actual *</label>
+            <input
+              type="password"
+              id="passwordActual"
+              formControlName="passwordActual"
+              placeholder="••••••••"
+              [class.error]="passwordActual?.invalid && passwordActual?.touched"
+            />
+            <div *ngIf="passwordActual?.invalid && passwordActual?.touched" class="error-message">
+              <span *ngIf="passwordActual?.errors?.['required']">La contraseña actual es obligatoria</span>
+              <span *ngIf="passwordActual?.errors?.['minlength']">Mínimo 6 caracteres</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="passwordNuevo">Nueva contraseña *</label>
+            <input
+              type="password"
+              id="passwordNuevo"
+              formControlName="passwordNuevo"
+              placeholder="••••••••"
+              [class.error]="passwordNuevo?.invalid && passwordNuevo?.touched"
+            />
+            <div *ngIf="passwordNuevo?.invalid && passwordNuevo?.touched" class="error-message">
+              <span *ngIf="passwordNuevo?.errors?.['required']">La nueva contraseña es obligatoria</span>
+              <span *ngIf="passwordNuevo?.errors?.['minlength']">Mínimo 6 caracteres</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmarPassword">Confirmar nueva contraseña *</label>
+            <input
+              type="password"
+              id="confirmarPassword"
+              formControlName="confirmarPassword"
+              placeholder="••••••••"
+              [class.error]="confirmarPassword?.invalid && confirmarPassword?.touched"
+            />
+            <div *ngIf="confirmarPassword?.invalid && confirmarPassword?.touched" class="error-message">
+              <span *ngIf="confirmarPassword?.errors?.['required']">Debes confirmar la contraseña</span>
+              <span *ngIf="confirmarPassword?.errors?.['noCoinciden']">Las contraseñas no coinciden</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="cargando || passwordForm.invalid">
+              {{ cargando ? 'Actualizando...' : 'Actualizar Contraseña' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

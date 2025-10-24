@@ -1,0 +1,93 @@
+<div class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">Organiza tu vida con TaskApp</h1>
+      <p class="hero-subtitle">
+        La forma más simple y efectiva de gestionar tus tareas diarias.
+        Aumenta tu productividad y nunca olvides lo importante.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary btn-lg" (click)="irADashboard()">
+          {{ estaAutenticado() ? 'Ir al Dashboard' : 'Comenzar Gratis' }}
+        </button>
+        <a *ngIf="!estaAutenticado()" routerLink="/login" class="btn btn-outline btn-lg">
+          Iniciar Sesión
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="task-preview">
+        <div class="preview-card">
+          <div class="preview-header">
+            <span class="preview-check">✓</span>
+            <span>Completar proyecto final</span>
+          </div>
+          <span class="preview-badge">Alta prioridad</span>
+        </div>
+        <div class="preview-card">
+          <div class="preview-header">
+            <span class="preview-check empty"></span>
+            <span>Revisar correos</span>
+          </div>
+          <span class="preview-badge">Media prioridad</span>
+        </div>
+        <div class="preview-card">
+          <div class="preview-header">
+            <span class="preview-check empty"></span>
+            <span>Hacer ejercicio</span>
+          </div>
+          <span class="preview-badge">Baja prioridad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="features-section">
+  <div class="container">
+    <h2 class="section-title">Características principales</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <h3>Gestión Simple</h3>
+        <p>Crea, edita y elimina tareas de manera intuitiva</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Prioridades</h3>
+        <p>Organiza tus tareas por nivel de importancia</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Fechas límite</h3>
+        <p>Nunca pierdas un deadline importante</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Seguro</h3>
+        <p>Tus datos están protegidos y encriptados</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Responsive</h3>
+        <p>Accede desde cualquier dispositivo</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Rápido</h3>
+        <p>Interfaz veloz y sin demoras</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="container">
+    <h2>¿Listo para ser más productivo?</h2>
+    <p>Únete a miles de usuarios que ya organizan su vida con TaskApp</p>
+    <button class="btn btn-primary btn-lg" (click)="irADashboard()">
+      Comenzar ahora
+    </button>
+  </div>
+</div>
